@@ -669,8 +669,13 @@ document.addEventListener('DOMContentLoaded', () => {
         renderItems("burger");
     };
 
+    // 홈(모드 선택) 화면으로 돌아가기
+    function goToHomePage() {
+        window.location.href = "index.html";
+    }
+    
     document.querySelectorAll(".btn-home").forEach(btn => {
-        btn.onclick = resetAndGoHome;
+        btn.addEventListener("click", goToHomePage);
     });
 
     const handlePayment = () => {
