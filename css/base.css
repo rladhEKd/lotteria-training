@@ -15,7 +15,7 @@ body {
 
   /* 높이: 브라우저 보이는 영역을 꽉 채우도록 */
   height: 100vh;
-  height: 100svh;           /* 지원되는 브라우저에서 더 정확한 높이 */
+  height: 100svh;     
 
   max-height: 960px;
   margin: 0 auto;
@@ -25,10 +25,10 @@ body {
   display: flex;
   flex-direction: column;
 
-  /* 안의 롯데리아 화면이 길어지면 안에서 스크롤 되도록 */
-  overflow-y: auto;
+  /* ❌ 삭제해야 함: overflow-y: auto; */
+  /* overflow-y: auto; */
 
-  /* 전체 기본 글씨 (고령층 기준) */
+  /* 전체 기본 글씨 */
   font-size: 17px;
 }
 
@@ -41,9 +41,9 @@ body {
   margin: 8px auto 4px;
 }
 
-/* 상단 헤더 (홈 버튼 들어가는 바) */
+/* 상단 헤더 (홈 버튼 바) */
 .app-header {
-  flex: 0 0 44px;              /* 고정 높이 */
+  flex: 0 0 44px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -66,4 +66,10 @@ body {
 .app-title {
   font-weight: 600;
   font-size: 14px;
+}
+
+/* ========= 키오스크 내용 스크롤 영역 ========= */
+.scale-wrapper {
+  flex: 1;
+  overflow-y: auto;   /* ⭕ 이 영역만 스크롤 */
 }
