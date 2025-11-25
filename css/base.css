@@ -1,9 +1,10 @@
 /* ========= 기본 ========== */
-body, html {
+html,
+body {
   margin: 0;
   padding: 0;
   background-color: #f0f0f0;
-  font-family: 'Pretendard', 'Malgun Gothic', system-ui, sans-serif;
+  font-family: "Pretendard", "Malgun Gothic", system-ui, sans-serif;
 }
 
 /* ========= 휴대폰 프레임 ========= */
@@ -20,9 +21,7 @@ body, html {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
-  /* 고령층 사용성 → 기본 글씨 전반적으로 크게 */
-  font-size: 17px;
+  font-size: 17px; /* 기본 글씨 크게 */
 }
 
 .phone-notch {
@@ -33,7 +32,7 @@ body, html {
   margin: 8px auto 4px;
 }
 
-/* 화면이 너무 잘리는 걸 방지 */
+/* 세로 스크롤 과도하게 생기는 것 방지 */
 .phone-frame {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
