@@ -1,626 +1,100 @@
+/* =========================
+   👇 롯데리아 화면 컴팩트 튜닝
+   (기존 스타일 덮어쓰기)
+   ========================= */
+
+/* 전체 기본 글씨 살짝 줄이기 */
 .kiosk-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    background-color: white;
-
-    /* border/그림자/뷰포트 기반 크기는 phone-frame에서 이미 처리하니까 삭제 */
-    border: none;
-    box-shadow: none;
-
-    display: flex;
-    flex-direction: column;
+    font-size: 15px;  /* 기존보다 1~2pt 정도 작게 */
 }
 
-/* 화면 공통 스타일 */
-.screen {
-    width: 100%;
-    height: 100%;
-    display: none;
-    flex-direction: column;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.screen.active {
-    display: flex;
-    opacity: 1;
-}
-
-/* 헤더 */
-.welcome-header, .main-header {
-    padding: 15px 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-}
-
-.welcome-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.btn-home {
-    font-size: 20px;
-    font-weight: bold;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.lang-tabs button {
-    font-size: 16px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    cursor: pointer;
-}
-
-.lang-tabs button.active {
-    background-color: #333;
-    color: white;
-    border-color: #333;
-}
-
-/* 진행 단계 바 */
-.progress-bar {
-    display: flex;
-    justify-content: space-around;
-    font-size: 14px;
-    color: #aaa;
-}
-
-.progress-bar .step {
-    padding: 10px 0;
-    border-bottom: 4px solid transparent;
-}
-
-.progress-bar .step.active {
-    color: #D50000;
-    font-weight: bold;
-    border-bottom-color: #D50000;
-}
-
-/* 1. 시작 화면 */
-.welcome-main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
+/* 1. 시작 화면: 제목 + 선택 카드 크기 축소 */
 .welcome-main h1 {
-    font-size: 32px;
-    margin-bottom: 40px;
-}
-
-.choice-buttons {
-    display: flex;
-    gap: 30px;
+    font-size: 26px;           /* 32px → 26px */
+    margin-bottom: 28px;       /* 여백도 조금 줄이기 */
 }
 
 .choice-buttons button {
-    width: 200px;
-    height: 250px;
-    border: 2px solid #ccc;
-    border-radius: 15px;
-    background-color: white;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.choice-buttons button:hover {
-    border-color: #D50000;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-}
-
-.choice-buttons img {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px;
+    width: 170px;              /* 200px → 170px */
+    height: 220px;             /* 250px → 220px */
 }
 
 .choice-buttons span {
-    font-size: 28px;
-    font-weight: bold;
-    display: block;
+    font-size: 22px;           /* 28px → 22px */
 }
 
-/* 2. 메뉴 화면 */
-.menu-main {
-    flex-grow: 1;
-    display: flex;
-    min-height: 0; /* Prevent flex item from growing beyond container */
+/* 2. 상단 단계 탭(포장/매장, 메뉴선택...) 줄이기 */
+.progress-bar {
+    font-size: 12px;           /* 14px → 12px */
 }
 
-.category-nav {
-    width: 150px;
-    background-color: #f8f8f8;
-    padding: 10px 0;
-    border-right: 1px solid #eee;
+.progress-bar .step {
+    padding: 6px 0;            /* 10px → 6px */
 }
 
-.category-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
+/* 3. 왼쪽 카테고리 (버거 / 디저트·치킨 / 음료·커피) */
 .category-nav li button {
-    width: 100%;
-    padding: 20px 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    border-left: 5px solid transparent;
+    padding: 14px 10px;        /* 20px → 14px */
+    font-size: 16px;           /* 20px → 16px */
 }
 
-.category-nav li button.active {
-    background-color: #D50000;
-    border-left-color: #ffc107;
-    color: white;
-}
-
-.items-grid {
-    flex-grow: 1;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    overflow-y: auto;
-}
-
+/* 4. 메뉴 카드(버거 이름 & 가격) 작게 */
 .item-card {
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.item-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-}
-
-.item-card img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    background-color: #f8f8f8;
+    padding: 8px;              /* 10px → 8px */
 }
 
 .item-card .item-name {
-    font-size: 20px;      /* ← 카테고리와 동일 크기 */
-    font-weight: bold;    /* ← 이미 굵게지만 한번 더 명시 */
-    margin: 10px 0 4px;   /* 아래 여백은 살짝만 두기 */
+    font-size: 18px;           /* 20px → 18px */
 }
 
 .item-card .item-price {
-    font-size: 16px;
-    color: #D50000;
-    font-weight: bold;
-    margin-top: 8px;   /* ← 이름과 가격 사이에 여유 주기 */
+    font-size: 14px;           /* 16px → 14px */
 }
 
-/* 하단 장바구니 */
-.main-footer {
-    padding: 12px 18px 18px;
-    background-color: #fff;
-    border-top: 2px solid #ddd;
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.cart-list {
-    max-height: 120px;
-    overflow-y: auto;
-}
-
-/* 한 개 아이템 카드 */
+/* 5. 장바구니 요약 + 주문 버튼도 살짝 줄이기 */
 .cart-item-small {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-    font-size: 16px;  /* 기본 글자 크기 ↑ */
-}
-
-.cart-item-main {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+    font-size: 15px;
 }
 
 .cart-item-main .item-name {
-    font-weight: 700;
-    font-size: 18px;   /* 메뉴 이름 크게 */
+    font-size: 17px;
 }
 
 .cart-item-main .item-options {
-    font-size: 14px;   /* 옵션은 한 단계 작게 */
-    color: #777;
-}
-
-.cart-item-meta {
-    text-align: right;
-    font-size: 15px;
-    min-width: 120px;
-}
-
-/* 장바구니 안에서 수량 조절/삭제 버튼 */
-.cart-item-controls {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 6px;
-    margin-bottom: 4px;
-}
-
-.cart-item-controls button {
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 0;
-}
-
-.cart-remove {
-    color: #999;
+    font-size: 13px;
 }
 
 .cart-item-meta .item-price {
-    font-weight: 700;
-    font-size: 16px;
-    color: #D50000;
+    font-size: 15px;
 }
 
-/* 요약 + 주문 버튼 */
 .cart-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 700;
-    padding-top: 6px;
-    border-top: 1px solid #eee;
+    font-size: 16px;           /* 18px → 16px */
 }
 
 .btn-pay {
-    background-color: #D50000;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    border: none;
-    padding: 14px 0;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 100%;
+    font-size: 18px;           /* 20px → 18px */
+    padding: 12px 0;           /* 14px → 12px */
 }
 
-
-/* 3. 옵션 화면 */
-#screen-options {
-    background-color: #f9f9f9;
-}
-
-#screen-options .main-header h2 {
-    font-size: 28px;
-    text-align: center;
-    margin: 0;
-}
-
-.options-main {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.option-group {
-    margin-bottom: 25px;
-}
-
-.option-group h3 {
-    font-size: 22px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-}
-
-.choices {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.choice-btn {
-    padding: 20px;
-    font-size: 18px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    background-color: white;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.choice-btn.selected {
-    border-color: #D50000;
-    background-color: #fff0f0;
-    font-weight: bold;
-}
-
-.options-footer {
-    display: flex;
-    padding: 15px;
-    gap: 15px;
-}
-
-.options-footer button {
-    flex-grow: 1;
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-cancel {
-    background-color: #555;
-    color: white;
-}
-
-.btn-add-cart {
-    background-color: #D50000;
-    color: white;
-}
-
-
-/* 4. 주문 확인 화면 */
-#screen-confirm .main-header h1 {
-    text-align: center;
-    font-size: 28px;
-    margin: 0;
-}
-
-.confirm-main {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.confirm-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-.confirm-item .item-info {
-    flex-grow: 1;
-}
-
-.confirm-item .item-name {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.confirm-item .item-options {
-    font-size: 14px;
-    color: #666;
-}
-
-.confirm-item .item-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 20px;
-}
-
-.confirm-item .item-controls button {
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
-    font-weight: bold;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    background-color: white;
-    cursor: pointer;
-}
-
-.confirm-item .item-price {
-    font-size: 20px;
-    font-weight: bold;
-    width: 100px;
-    text-align: right;
-}
-
-.btn-remove {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #999;
-    cursor: pointer;
-    margin-left: 15px;
-}
-
-.confirm-footer {
-    background-color: #fff;
-    padding: 20px;
-    border-top: 2px solid #333;
-}
-
-.total-section {
-    text-align: right;
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.button-section {
-    display: flex;
-    gap: 15px;
-}
-
-.button-section button {
-    flex-grow: 1;
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-#btn-add-more {
-    background-color: #555;
-    color: white;
-}
-
-#btn-confirm-pay {
-    background-color: #D50000;
-    color: white;
-}
-
-
-/* 5. 결제 화면 */
-.payment-main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-}
-
+/* 6. 결제 화면 & 완료 화면 타이틀도 살짝 */
 .payment-main h1 {
-    font-size: 32px;
-    margin-bottom: 40px;
-}
-
-.payment-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 100%;
-    max-width: 400px;
-}
-
-.btn-payment-method {
-    height: 100px;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 10px;
-    border: 2px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btn-payment-method:hover {
-    border-color: #D50000;
-    background-color: #fff0f0;
-}
-
-.payment-info {
-    margin-bottom: 30px;
+    font-size: 26px;           /* 32px → 26px */
 }
 
 .payment-info p {
-    margin: 0;
-    font-size: 24px;
+    font-size: 20px;           /* 24px → 20px */
 }
 
 .payment-info .total-amount {
-    font-size: 48px;
-    font-weight: bold;
-    color: #D50000;
-}
-
-.card-reader-img {
-    width: 200px;
-    margin-bottom: 30px;
-}
-
-.payment-buttons button {
-    font-size: 20px;
-    padding: 15px 40px;
-    margin: 0 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-}
-
-.payment-processing {
-    font-size: 40px;
-    color: #D50000;
-    font-weight: bold;
-}
-
-.btn-payment-cancel {
-    margin-top: 24px;
-    width: 100%;
-    height: 70px;
-    font-size: 24px;
-    font-weight: 700;
-    border-radius: 10px;
-    border: 2px solid #777;
-    background-color: #555;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* 6. 결제 완료 화면 */
-.complete-main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    font-size: 40px;           /* 48px → 40px */
 }
 
 .complete-main h1 {
-    font-size: 40px;
-    margin-bottom: 40px;
+    font-size: 32px;           /* 40px → 32px */
 }
 
 .complete-buttons button {
-    font-size: 22px;
-    padding: 15px 30px;
-    margin: 0 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    min-width: 150px;
-}
-
-
-/* 임시 이미지 스타일 */
-img {
-    background-color: #eee;
-    text-align: center;
-    line-height: 100px; /* for alt text */
-    color: #aaa;
+    font-size: 18px;           /* 22px → 18px */
+    padding: 12px 24px;
 }
