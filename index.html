@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  />
+  <title>키오도움 · 롯데리아 홈</title>
+
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="css/base.css" />
+  <!-- 홈 전용 스타일 -->
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="phone-notch"></div>
+
+    <!-- 상단 헤더 -->
+    <header class="home-header">
+      <h1 class="home-title">키오도움 · 롯데리아</h1>
+      <p class="home-subtitle">
+        고령층도 천천히 연습할 수 있는<br />
+        롯데리아 키오스크 안내 서비스
+      </p>
+    </header>
+
+    <!-- 메인: 실전 모드 / 학습 모드 선택 -->
+    <main class="home-main">
+      <p class="home-intro">
+        아래에서 <strong>사용해 보고 싶은 모드</strong>를 골라 터치하세요.
+      </p>
+
+      <p class="mode-tabs-label">모드 선택</p>
+
+      <div class="mode-tabs">
+        <!-- 실전 모드 -->
+        <a href="lotteria.html" class="mode-tab" role="button">
+          <span class="mode-tag">실전 모드</span>
+          <span class="mode-tab-title">실제 매장처럼 주문하기</span>
+          <span class="mode-tab-desc">
+            안내 없이 직접 눌러 보며 연습합니다.
+          </span>
+        </a>
+
+        <!-- 학습 모드 -->
+        <a href="lotteria-learning.html" class="mode-tab mode-tab--secondary" role="button">
+          <span class="mode-tag mode-tag--blue">학습 모드</span>
+          <span class="mode-tab-title">단계별 친절 안내</span>
+          <span class="mode-tab-desc">
+            한 단계씩 설명을 보고 따라 할 수 있습니다.
+          </span>
+        </a>
+      </div>
+    </main>
+
+    <!-- 하단 안내 -->
+    <footer class="home-footer">
+      <strong>Tip.</strong> 버튼이 안 눌리면 <strong>꾹</strong> 눌러 주세요.
+    </footer>
+
+  </div>
+</body>
+</html>
