@@ -40,3 +40,30 @@ body {
   background-color: #000;
   margin: 8px auto 4px;
 }
+
+/* 상단 헤더 (홈 버튼 들어가는 바) */
+.app-header {
+  flex: 0 0 44px;              /* 고정 높이 */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  background-color: #ffffff;
+  z-index: 10;
+}
+
+.app-back {
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 4px 12px;
+  background-color: #f9f9f9;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.app-title {
+  font-weight: 600;
+  font-size: 14px;
+}
