@@ -11,28 +11,32 @@ body {
 .phone-frame {
   position: relative;
   width: 100vw;
-  height: 100vh;
   max-width: 540px;
+
+  /* 높이: 브라우저 보이는 영역을 꽉 채우도록 */
+  height: 100vh;
+  height: 100svh;           /* 지원되는 브라우저에서 더 정확한 높이 */
+
   max-height: 960px;
   margin: 0 auto;
   background-color: #fff;
   border-radius: 24px;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  font-size: 17px; /* 기본 글씨 크게 */
+
+  /* 안의 롯데리아 화면이 길어지면 안에서 스크롤 되도록 */
+  overflow-y: auto;
+
+  /* 전체 기본 글씨 (고령층 기준) */
+  font-size: 17px;
 }
 
+/* 노치 */
 .phone-notch {
   width: 40%;
   height: 20px;
   border-radius: 0 0 12px 12px;
   background-color: #000;
   margin: 8px auto 4px;
-}
-
-/* 세로 스크롤 과도하게 생기는 것 방지 */
-.phone-frame {
-  overflow-y: hidden;
 }
