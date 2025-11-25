@@ -669,14 +669,33 @@ document.addEventListener('DOMContentLoaded', () => {
         renderItems("burger");
     };
 
-    // 홈(모드 선택) 화면으로 돌아가기
-    function goToHomePage() {
-        window.location.href = "index.html";
-    }
+    // --- 이벤트 리스너 --- //
+    document.getElementById("btn-takeout").onclick = () => {
+        state.orderType = "takeout";
+        showScreen("screen-menu");
+        renderCategories();
+        renderItems("burger");
+    };
     
+    document.getElementById("btn-dine-in").onclick = () => {
+        state.orderType = "dine-in";
+        showScreen("screen-menu");
+        renderCategories();
+        renderItems("burger");
+    };
+    
+    // ✅ 1) 키오스크 내부 "처음으로" → 상태 리셋 + 웰컴 화면
     document.querySelectorAll(".btn-home").forEach(btn => {
-        btn.addEventListener("click", goToHomePage);
+        btn.addEventListener("click", resetAndGoHome);
     });
+    
+    // ✅ 2) 상단 고정 "홈으로" 버튼 → index.html로 이동
+    const homeBtn = document.getElementById("btn-go-home");
+    if (homeBtn) {
+        homeBtn.addEventListener("click", () => {
+            window.location.href = "index.html";
+        });
+    }
 
     const handlePayment = () => {
         const paymentMain = document.querySelector(
