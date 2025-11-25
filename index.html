@@ -8,13 +8,14 @@
   />
   <title>키오도움 · 롯데리아 홈</title>
 
-  <!-- 공통 스타일 -->
+  <!-- 공통 프레임/타이포 (phone-frame, phone-notch 등) -->
   <link rel="stylesheet" href="css/base.css" />
-  <!-- 홈 전용 스타일 -->
+  <!-- 홈 전용 스타일 (다음 단계에서 같이 정리할 예정) -->
   <link rel="stylesheet" href="css/home.css" />
 </head>
 <body>
-  <div class="phone-frame">
+  <!-- home-page 클래스로 나중에 CSS 스코프 쉽게 잡기 -->
+  <div class="phone-frame home-page">
     <div class="phone-notch"></div>
 
     <!-- 상단 헤더 -->
@@ -32,24 +33,34 @@
         아래에서 <strong>사용해 보고 싶은 모드</strong>를 골라 터치하세요.
       </p>
 
-      <p class="mode-tabs-label">모드 선택</p>
+      <p class="home-mode-label">모드 선택</p>
 
-      <div class="mode-tabs">
+      <div class="home-mode-tabs">
         <!-- 실전 모드 -->
-        <a href="lotteria.html" class="mode-tab" role="button">
-          <span class="mode-tag">실전 모드</span>
-          <span class="mode-tab-title">실제 매장처럼 주문하기</span>
-          <span class="mode-tab-desc">
-            안내 없이 직접 눌러 보며 연습합니다.
+        <a
+          href="lotteria.html"
+          class="home-mode-card home-mode-card--primary"
+          role="button"
+        >
+          <span class="home-mode-tag home-mode-tag--red">실전 모드</span>
+          <span class="home-mode-title">실제 매장처럼 주문하기</span>
+          <span class="home-mode-desc">
+            안내 없이 직접 눌러 보며<br />
+            키오스크 사용에 익숙해지고 싶은 분께 좋습니다.
           </span>
         </a>
 
         <!-- 학습 모드 -->
-        <a href="lotteria-learning.html" class="mode-tab mode-tab--secondary" role="button">
-          <span class="mode-tag mode-tag--blue">학습 모드</span>
-          <span class="mode-tab-title">단계별 친절 안내</span>
-          <span class="mode-tab-desc">
-            한 단계씩 설명을 보고 따라 할 수 있습니다.
+        <a
+          href="lotteria-learning.html"
+          class="home-mode-card home-mode-card--secondary"
+          role="button"
+        >
+          <span class="home-mode-tag home-mode-tag--blue">학습 모드</span>
+          <span class="home-mode-title">단계별 친절 안내</span>
+          <span class="home-mode-desc">
+            화면 옆 설명을 보면서<br />
+            한 단계씩 천천히 따라 할 수 있습니다.
           </span>
         </a>
       </div>
@@ -57,9 +68,10 @@
 
     <!-- 하단 안내 -->
     <footer class="home-footer">
-      <strong>Tip.</strong> 버튼이 안 눌리면 <strong>꾹</strong> 눌러 주세요.
+      <strong class="home-footer-strong">Tip.</strong>
+      버튼이 잘 안 눌리면 <strong>꾹</strong> 한 번 더 눌러 주세요.<br />
+      나가고 싶을 때는 휴대폰의 뒤로 가기 버튼을 사용하면 됩니다.
     </footer>
-
   </div>
 </body>
 </html>
