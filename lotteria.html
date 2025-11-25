@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키오도움 - 롯데리아 클론</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="kiosk-wrapper">
+
+        <!-- 1. 포장/매장 선택 화면 -->
+        <div id="screen-welcome" class="screen active">
+            <header class="welcome-header">
+                <button class="btn-home">처음으로</button>
+                <div class="lang-tabs">
+                    <button class="active">한국어</button>
+                    <button>ENG</button>
+                    <button>中文</button>
+                    <button>日本語</button>
+                </div>
+            </header>
+            <main class="welcome-main">
+                <h1>식사 장소를 선택해주세요</h1>
+                <div class="choice-buttons">
+                    <button id="btn-takeout">
+                        <img src="https://placehold.co/120x120/ffdddd/000000?text=🥡" alt="매장에서 식사">
+                        <span>매장에서 식사</span>
+                    </button>
+                    <button id="btn-dine-in">
+                        <img src="https://placehold.co/120x120/ddeeff/000000?text=🍽️" alt="포장주문">
+                        <span>포장주문</span>
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <!-- 2. 메뉴 선택 화면 -->
+        <div id="screen-menu" class="screen">
+            <header class="main-header">
+                <div class="progress-bar">
+                    <div class="step active">포장/매장</div>
+                    <div class="step active">메뉴선택</div>
+                    <div class="step">주문확인</div>
+                    <div class="step">결제하기</div>
+                    <div class="step">결제완료</div>
+                </div>
+            </header>
+            <main class="menu-main">
+                <nav class="category-nav">
+                    <ul>
+                        <!-- 카테고리는 JS로 생성 -->
+                    </ul>
+                </nav>
+                <section class="items-grid">
+                    <!-- 아이템은 JS로 생성 -->
+                </section>
+            </main>
+            <footer class="main-footer">
+                <!-- 장바구니는 JS로 생성 -->
+            </footer>
+        </div>
+
+        <!-- 3. 옵션 선택 화면 -->
+        <div id="screen-options" class="screen">
+            <!-- 옵션 콘텐츠는 JS로 생성 -->
+        </div>
+
+        <!-- 4. 주문 확인 화면 -->
+        <div id="screen-confirm" class="screen">
+            <!-- 주문 확인 콘텐츠는 JS로 생성 -->
+        </div>
+
+        <!-- 5. 결제 화면 -->
+        <div id="screen-payment" class="screen">
+            <header class="main-header">
+                <div class="progress-bar">
+                    <div class="step active">포장/매장</div>
+                    <div class="step active">메뉴선택</div>
+                    <div class="step active">주문확인</div>
+                    <div class="step active">결제하기</div>
+                    <div class="step">결제완료</div>
+                </div>
+            </header>
+           <main class="payment-main">
+                <h1>결제 수단을 선택해주세요</h1>
+                <div class="payment-info">
+                    <p>총 결제금액</p>
+                    <p class="total-amount">0원</p>
+                </div>
+                <div class="payment-options">
+                    <button id="btn-pay-card" class="btn-payment-method">신용카드</button>
+                    <button id="btn-pay-cash" class="btn-payment-method">현금</button>
+                    <button id="btn-pay-other" class="btn-payment-method">기타결제</button>
+                    <button id="btn-pay-points" class="btn-payment-method">포인트 적립</button>
+                </div>
+                <button id="btn-payment-cancel" class="btn-payment-cancel">취소</button>
+            </main>
+        </div>
+
+        <!-- 6. 결제 완료 화면 -->
+        <div id="screen-complete" class="screen">
+            <main class="complete-main">
+                <h1>결제가 완료되었습니다</h1>
+                <div id="order-number-display"></div>
+                <div class="complete-buttons">
+                    <button>영수증 출력</button>
+                    <button>포인트 적립</button>
+                    <button class="btn-home">처음으로</button>
+                </div>
+            </main>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
