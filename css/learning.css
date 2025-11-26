@@ -1,0 +1,111 @@
+.learning-header {
+    background: #fff8e8;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.brand-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.mode-pill {
+    background: #4caf50;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.mission-text {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #333;
+}
+
+.learning-main {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 80px);
+}
+
+.kiosk-area {
+    flex: 1;
+    overflow-y: auto;
+    border-bottom: 1px solid #eee;
+}
+
+/* 하단 학습 패널 */
+.learning-panel {
+    background: #fff;
+    padding: 16px;
+    border-top: 1px solid #ddd;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step-badge {
+    background: #ff9800;
+    padding: 4px 8px;
+    color: white;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.step-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.step-description {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.step-list {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.step-list li {
+    padding: 4px 0;
+}
+
+.step-list .current {
+    color: #d50000;
+    font-weight: bold;
+}
+
+.panel-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button.ghost {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+button.danger {
+    background: #d50000;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+}
