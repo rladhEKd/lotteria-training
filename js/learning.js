@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const stepBadge = document.querySelector(".step-badge");
     const stepDesc = document.querySelector(".step-description");
     const stepList = document.querySelectorAll(".step-list li");
+    const learningPanel = document.querySelector(".learning-panel");
 
 
     /* ====================================
@@ -37,6 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
         stepDesc.innerHTML = `왼쪽 카테고리에서 <strong>"버거"</strong>를 눌러보세요.`;
 
         console.log("✅ 1단계 완료 → 2단계로 이동");
+
+        // ⭐ 학습 패널로 자동 스크롤 (보이도록)
+        learningPanel.scrollIntoView({ behavior: "smooth" });
     }
 
 
@@ -44,15 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
         2단계: "버거 카테고리" 클릭 감지
     ==================================== */
 
-    // lotteria.js에서 생성되는 카테고리 버튼이 동적으로 생기므로
-    // document 전체에 이벤트 위임
     document.addEventListener("click", (event) => {
         if (learningState.currentStep !== 2) return;
 
-        // 실제로 버거 카테고리 버튼인지 확인
-        if (event.target.matches(".category-nav button")
-            && event.target.textContent.includes("버거")) {
-
+        if (
+            event.target.matches(".category-nav button") &&
+            event.target.textContent.includes("버거")
+        ) {
             completeStep2();
         }
     });
@@ -69,6 +71,22 @@ document.addEventListener("DOMContentLoaded", () => {
         stepDesc.innerHTML = `버거 목록에서 <strong>"리아불고기"</strong>를 찾아 눌러보세요.`;
 
         console.log("✅ 2단계 완료 → 3단계 안내 표시");
+
+        // ⭐ 패널을 다시 보여주기
+        learningPanel.scrollIntoView({ behavior: "smooth" });
+    }
+
+
+
+    /* ====================================
+         상단 '홈으로' 버튼 기능
+    ==================================== */
+
+    const topHomeBtn = document.getElementById("btn-go-home");
+    if (topHomeBtn) {
+        topHomeBtn.addEventListener("click", () => {
+            window.location.href = "index.html";
+        });
     }
 
 
