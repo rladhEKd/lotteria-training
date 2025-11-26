@@ -18,13 +18,27 @@
     <!--  학습 모드 상단 헤더      -->
     <!-- ========================= -->
     <header class="learning-header">
-        <div class="brand-row">
-            <button type="button" class="app-back">← 홈으로</button>
-            <span class="app-title">롯데리아 키오스크 학습 모드</span>
-            <span class="mode-pill">연습 중</span>
+      <div class="brand-row">
+        <button type="button" class="app-back">홈으로</button>
+    
+        <div class="brand-center">
+          <span class="app-title">롯데리아 키오스크 학습 모드</span>
+          <p class="mission-text">미션: 리아불고기 세트를 주문해 보세요</p>
         </div>
-        <p class="mission-text">미션: 리아불고기 세트를 주문해 보세요</p>
-        <p class="step-inline">[1단계] 매장에서 식사 버튼을 눌러주세요.</p>
+    
+        <span class="mode-pill">연습 중</span>
+      </div>
+    
+      <!-- 단계 안내 + 이전/처음 버튼이 들어가는 상단 바 -->
+      <div class="learning-top-bar">
+        <p class="step-inline">
+          <strong>[1단계]</strong> 매장에서 식사 버튼을 눌러주세요.
+        </p>
+        <div class="top-actions">
+          <button id="btn-prev-step" class="ghost small">이전 단계로</button>
+          <button id="btn-reset-mission" class="danger small">처음부터 다시</button>
+        </div>
+      </div>
     </header>
 
     <!-- ========================= -->
@@ -136,34 +150,34 @@
                         </div>
                     </main>
                 </div>
-            
+                <!-- 단계별 말풍선 안내 -->
+                <div id="learning-hint" class="learning-hint" aria-hidden="true"></div>
             </div>
 
         <!-- ========================= -->
         <!--      학습 패널 (하단)      -->
         <!-- ========================= -->
         <aside class="learning-panel">
-            <div class="step-header">
-                <span class="step-badge">1단계</span>
-                <span class="step-title">식사 장소 선택하기</span>
-            </div>
-
-            <p class="step-description">
-                화면 가운데의 버튼 중에서 <strong>“매장에서 식사”</strong>를 눌러보세요.
-            </p>
-
-            <ul class="step-list">
-                <li class="current">1. 식사 장소 선택</li>
-                <li>2. 버거 메뉴 열기</li>
-                <li>3. 리아불고기 선택</li>
-                <li>4. 세트 선택</li>
-                <li>5. 결제하기</li>
-            </ul>
-
-            <div class="panel-buttons">
-                <button id="btn-retry-step" class="ghost">이전 단계로</button>
-                <button id="btn-reset-mission" class="danger">처음부터 다시</button>
-            </div>
+          <div class="step-header">
+            <span class="step-badge">1단계</span>
+            <span class="step-title">식사 장소 선택하기</span>
+          </div>
+        
+          <p class="step-description">
+            화면 가운데의 버튼 중에서 <strong>“매장에서 식사”</strong>를 눌러보세요.
+          </p>
+        
+          <ul class="step-list">
+            <li class="current">1. 식사 장소 선택</li>
+            <li>2. 버거 메뉴 열기</li>
+            <li>3. 리아불고기 선택</li>
+            <li>4. 빵 업그레이드 선택</li>
+            <li>5. 디저트 선택</li>
+            <li>6. 음료 선택</li>
+            <li>7. 결제하기</li>
+          </ul>
+        
+          <!-- 버튼은 이제 상단으로 옮겼으므로 여기서는 제거 -->
         </aside>
     </main>
 </div>
