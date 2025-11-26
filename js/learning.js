@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const learningPanel = document.querySelector(".learning-panel");
   if (!learningPanel) return;
 
+  const body = document.body;
+
   /* ====================================
      공통 학습 상태
   ==================================== */
@@ -15,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const stepDesc  = document.querySelector(".step-description");
   const stepList  = document.querySelectorAll(".step-list li");
 
-  // 필수 요소가 없으면 동작 안 함
   if (!stepTitle || !stepBadge || !stepDesc || stepList.length === 0) {
     console.warn("[learning.js] 학습 패널 요소를 찾지 못했습니다.");
     return;
@@ -29,6 +30,43 @@ document.addEventListener("DOMContentLoaded", () => {
     homeBtn.addEventListener("click", () => {
       window.location.href = "index.html";
     });
+  }
+
+  /* ====================================
+      단계별 UI 묶어서 갱신하는 함수
+  ==================================== */
+  function setStepUI(step) {
+    // step 리스트 표시 초기화
+    stepList.forEach(li => {
+      li.classList.remove("current");
+      li.classList.remove("done");
+    });
+    // 이전 단계들은 done, 현재 단계는 current
+    for (let i = 0; i < step - 1; i++) {
+      stepList[i].classList.add("done");
+    }
+    stepList[step - 1].classList.add("current");
+
+    // 단계별 텍스트 & 화살표 표시
+    if (step === 1) {
+      stepBadge.textContent = "1단계";
+      stepTitle.textContent = "식사 장소 선택하기";
+      stepDesc.innerHTML =
+        '화면 가운데의 버튼 중에서 <strong>“매장에서 식사”</strong>를 눌러보세요.';
+      body.classList.remove("show-burger-arrow");
+    } else if (step === 2) {
+      stepBadge.textContent = "2단계";
+      stepTitle.textContent = "버거 메뉴 열기";
+      stepDesc.innerHTML =
+        '왼쪽 카테고리에서 <strong>"버거"</strong>를 눌러보세요.';
+      body.classList.add("show-burger-arrow");
+    } else if (step === 3) {
+      stepBadge.textContent = "3단계";
+      stepTitle.textContent = "리아불고기 선택하기";
+      stepDesc.innerHTML =
+        '버거 목록에서 <strong>"리아불고기"</strong>를 찾아 눌러보세요.';
+      body.classList.remove("show-burger-arrow");
+    }
   }
 
   /* ====================================
@@ -47,31 +85,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function completeStep1() {
     learningState.currentStep = 2;
-
-    // step-list 표시 업데이트
-    stepList[0].classList.remove("current");
-    stepList[0].classList.add("done");
-    stepList[1].classList.add("current");
-
-    // 패널 텍스트 업데이트
-    stepBadge.textContent = "2단계";
-    stepTitle.textContent = "버거 메뉴 열기";
-    stepDesc.innerHTML = `왼쪽 카테고리에서 <strong>"버거"</strong>를 눌러보세요.`;
-
+    setStepUI(2);
     console.log("✅ 1단계 완료 → 2단계로 이동");
   }
 
   /* ====================================
       2단계: "버거 카테고리" 클릭 감지
   ==================================== */
-
-  // lotteria.js에서 카테고리 버튼을 동적으로 만들기 때문에
-  // document 전체에 이벤트 위임
   document.addEventListener("click", (event) => {
     if (learningState.currentStep !== 2) return;
 
     const target = event.target;
-
     if (
       target.matches(".category-nav button") &&
       target.textContent.includes("버거")
@@ -82,34 +106,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function completeStep2() {
     learningState.currentStep = 3;
-
-    stepList[1].classList.remove("current");
-    stepList[1].classList.add("done");
-    stepList[2].classList.add("current");
-
-    stepBadge.textContent = "3단계";
-    stepTitle.textContent = "리아불고기 선택하기";
-    stepDesc.innerHTML = `버거 목록에서 <strong>"리아불고기"</strong>를 찾아 눌러보세요.`;
-
+    setStepUI(3);
     console.log("✅ 2단계 완료 → 3단계 안내 표시");
   }
 
   /* ====================================
-      다시 하기 / 전체 리셋
+      '이전 단계로' / '처음부터 다시'
   ==================================== */
+  const retryBtn = document.getElementById("btn-retry-step");
+  const resetBtn = document.getElementById("btn-reset-mission");
 
-  const retryBtn  = document.getElementById("btn-retry-step");
-  const resetBtn  = document.getElementById("btn-reset-mission");
+  function goToPreviousStep() {
+    if (learningState.currentStep <= 1) return;
+
+    const prev = learningState.currentStep - 1;
+    learningState.currentStep = prev;
+    setStepUI(prev);
+
+    console.log(`🔙 이전 단계로 이동 → ${prev}단계`);
+  }
 
   if (retryBtn) {
-    retryBtn.onclick = () => {
-      location.reload();
-    };
+    retryBtn.onclick = goToPreviousStep;
   }
 
   if (resetBtn) {
     resetBtn.onclick = () => {
+      // 완전 리셋: 페이지 새로고침
       location.reload();
     };
   }
+
+  /* ====================================
+      초기 UI 표시 (1단계)
+  ==================================== */
+  setStepUI(1);
 });
