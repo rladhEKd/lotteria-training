@@ -109,3 +109,39 @@ button.danger {
     font-size: 14px;
     border-radius: 6px;
 }
+
+/* =====================================
+   2단계 안내용: 버거 카테고리 코치마크
+   body에 .show-burger-arrow 클래스가 붙으면 등장
+===================================== */
+
+.show-burger-arrow .category-nav {
+  position: relative;
+}
+
+.show-burger-arrow .category-nav::after {
+  content: "여기를 눌러 '버거' 메뉴를 열어보세요";
+  position: absolute;
+  top: 24px;
+  right: -8px;
+  transform: translateX(100%);
+  background: #fff7e6;
+  border: 1px solid #ffb74d;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 20;
+}
+
+/* 말풍선 꼬리 */
+.show-burger-arrow .category-nav::before {
+  content: "";
+  position: absolute;
+  top: 32px;
+  right: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent transparent #ffb74d;
+}
