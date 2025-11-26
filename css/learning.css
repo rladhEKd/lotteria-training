@@ -145,3 +145,18 @@ button.danger {
   border-style: solid;
   border-color: transparent transparent transparent #ffb74d;
 }
+
+/* =====================================
+   헤더 아래 한 줄 단계 안내
+===================================== */
+.step-inline {
+  margin: 4px 16px 10px;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.4;
+}
+
+/* 단계 숫자만 살짝 강조하고 싶으면 */
+.step-inline strong {
+  font-weight: 600;
+}
