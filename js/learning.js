@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const stepTitle = document.querySelector(".step-title");
   const stepBadge = document.querySelector(".step-badge");
   const stepDesc  = document.querySelector(".step-description");
+  const stepInline = document.querySelector(".step-inline");
   const stepList  = document.querySelectorAll(".step-list li");
 
   if (!stepTitle || !stepBadge || !stepDesc || stepList.length === 0) {
@@ -36,38 +37,47 @@ document.addEventListener("DOMContentLoaded", () => {
       단계별 UI 묶어서 갱신하는 함수
   ==================================== */
   function setStepUI(step) {
-    // step 리스트 표시 초기화
-    stepList.forEach(li => {
-      li.classList.remove("current");
-      li.classList.remove("done");
-    });
-    // 이전 단계들은 done, 현재 단계는 current
-    for (let i = 0; i < step - 1; i++) {
-      stepList[i].classList.add("done");
-    }
-    stepList[step - 1].classList.add("current");
-
-    // 단계별 텍스트 & 화살표 표시
-    if (step === 1) {
-      stepBadge.textContent = "1단계";
-      stepTitle.textContent = "식사 장소 선택하기";
-      stepDesc.innerHTML =
-        '화면 가운데의 버튼 중에서 <strong>“매장에서 식사”</strong>를 눌러보세요.';
-      body.classList.remove("show-burger-arrow");
-    } else if (step === 2) {
-      stepBadge.textContent = "2단계";
-      stepTitle.textContent = "버거 메뉴 열기";
-      stepDesc.innerHTML =
-        '왼쪽 카테고리에서 <strong>"버거"</strong>를 눌러보세요.';
-      body.classList.add("show-burger-arrow");
-    } else if (step === 3) {
-      stepBadge.textContent = "3단계";
-      stepTitle.textContent = "리아불고기 선택하기";
-      stepDesc.innerHTML =
-        '버거 목록에서 <strong>"리아불고기"</strong>를 찾아 눌러보세요.';
-      body.classList.remove("show-burger-arrow");
-    }
+  // step 리스트 표시 초기화
+  stepList.forEach(li => {
+    li.classList.remove("current");
+    li.classList.remove("done");
+  });
+  // 이전 단계들은 done, 현재 단계는 current
+  for (let i = 0; i < step - 1; i++) {
+    stepList[i].classList.add("done");
   }
+  stepList[step - 1].classList.add("current");
+
+  // 단계별 텍스트 & 화살표 & 한 줄 안내
+  if (step === 1) {
+    stepBadge.textContent = "1단계";
+    stepTitle.textContent = "식사 장소 선택하기";
+    stepDesc.innerHTML =
+      '화면 가운데의 버튼 중에서 <strong>“매장에서 식사”</strong>를 눌러보세요.';
+    if (stepInline) {
+      stepInline.textContent = "[1단계] 매장에서 식사 버튼을 눌러주세요.";
+    }
+    body.classList.remove("show-burger-arrow");
+  } else if (step === 2) {
+    stepBadge.textContent = "2단계";
+    stepTitle.textContent = "버거 메뉴 열기";
+    stepDesc.innerHTML =
+      '왼쪽 카테고리에서 <strong>\"버거\"</strong>를 눌러보세요.';
+    if (stepInline) {
+      stepInline.textContent = "[2단계] 왼쪽에서 ‘버거’ 탭을 눌러주세요.";
+    }
+    body.classList.add("show-burger-arrow");
+  } else if (step === 3) {
+    stepBadge.textContent = "3단계";
+    stepTitle.textContent = "리아불고기 선택하기";
+    stepDesc.innerHTML =
+      '버거 목록에서 <strong>\"리아불고기\"</strong>를 찾아 눌러보세요.';
+    if (stepInline) {
+      stepInline.textContent = "[3단계] 버거 목록에서 ‘리아불고기’를 선택하세요.";
+    }
+    body.classList.remove("show-burger-arrow");
+  }
+}
 
   /* ====================================
       1단계: "매장에서 식사" 클릭
