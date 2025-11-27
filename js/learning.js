@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 이 페이지에 학습 패널이 없으면(실전 모드 등) 그냥 종료
+  // 혹시 중복 실행 방지
+  if (window.__lotteriaLearningInitialized) return;
+  window.__lotteriaLearningInitialized = true;
+
   const learningPanel = document.querySelector(".learning-panel");
   if (!learningPanel) return;
 
@@ -10,10 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     currentStep: 1 // 1단계부터 시작
   };
 
-  const stepTitle = document.querySelector(".step-title");
-  const stepBadge = document.querySelector(".step-badge");
-  const stepDesc  = document.querySelector(".step-description");
-  const stepList  = document.querySelectorAll(".step-list li");
+  // 같은 클래스를 가진 요소가 여러 개일 수 있으니 전부 선택해서 갱신
+  const stepTitleEls = document.querySelectorAll(".step-title");
+  const stepBadgeEls = document.querySelectorAll(".step-badge");
+  const stepDescEls  = document.querySelectorAll(".step-description");
+  const stepListEls  = document.querySelectorAll(".step-list li");
 
   // 상단 미션 문구 (헤더) – 항상 고정 메시지
   const missionText = document.querySelector(".mission-text");
@@ -29,8 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const kioskArea = document.querySelector(".kiosk-area");
   let hintArrow = null;
 
-  // 필수 요소가 없으면 동작 안 함
-  if (!stepTitle || !stepBadge || !stepDesc || stepList.length === 0) {
+  if (
+    stepTitleEls.length === 0 ||
+    stepBadgeEls.length === 0 ||
+    stepDescEls.length === 0 ||
+    stepListEls.length === 0
+  ) {
     console.warn("[learning.js] 학습 패널 요소를 찾지 못했습니다.");
     return;
   }
@@ -69,11 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /**
-   * 특정 DOM 요소를 가리키는 좌/우 화살표 표시
-   * @param {HTMLElement} element - 가리킬 대상
-   * @param {"left"|"right"} direction - 화살표 머리 방향
-   */
   function showArrowForElement(element, direction = "left") {
     if (!kioskArea || !element) return;
     const arrow = ensureArrow();
@@ -86,11 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let left;
 
     if (direction === "left") {
-      // 요소 오른쪽 옆에서 ← 방향
       left = rect.right - baseRect.left + 8;
       arrow.textContent = "←";
     } else {
-      // 요소 왼쪽 옆에서 → 방향
       left = rect.left - baseRect.left - 8;
       arrow.textContent = "→";
     }
@@ -111,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const baseRect = kioskArea.getBoundingClientRect();
     const rect = target.getBoundingClientRect();
 
-    const top  = rect.top - baseRect.top - 12;        // 버튼 위쪽
+    const top  = rect.top - baseRect.top - 12;
     const left = rect.left - baseRect.left + rect.width / 2;
 
     arrow.textContent = "↓";
@@ -129,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hideArrow();
       return;
     }
-    showArrowForElement(burgerBtn, "left"); // 오른쪽에서 ← 로 가리키기
+    showArrowForElement(burgerBtn, "left");
   }
 
   // 3단계: "리아불고기" 메뉴 카드를 가리키는 화살표
@@ -149,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // 카드 왼쪽에서 → 로 가리키게
     showArrowForElement(targetCard, "right");
   }
 
@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ==================================== */
 
   function updateStepList(step) {
-    stepList.forEach((li, index) => {
+    stepListEls.forEach((li, index) => {
       li.classList.remove("current", "done");
       if (index < step - 1) {
         li.classList.add("done");
@@ -168,49 +168,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 단계별 텍스트 & 화살표 설정
+  function setStepText(badgeText, titleText, descHTML) {
+    stepBadgeEls.forEach(el => (el.textContent = badgeText));
+    stepTitleEls.forEach(el => (el.textContent = titleText));
+    stepDescEls.forEach(el => (el.innerHTML = descHTML));
+  }
+
   function applyStepUI(step) {
     if (step === 1) {
-      stepBadge.textContent = "1단계";
-      stepTitle.textContent = "식사 장소 선택하기";
-      stepDesc.innerHTML = `[1단계] 화면 가운데에서 <strong>"매장에서 식사"</strong>를 눌러보세요.`;
-
-      setTimeout(() => {
-        showArrowForDineIn();
-      }, 50);
+      setStepText(
+        "1단계",
+        "식사 장소 선택하기",
+        `[1단계] 화면 가운데에서 <strong>"매장에서 식사"</strong>를 눌러보세요.`
+      );
+      setTimeout(showArrowForDineIn, 50);
 
     } else if (step === 2) {
-      stepBadge.textContent = "2단계";
-      stepTitle.textContent = "버거 메뉴 열기";
-      stepDesc.innerHTML = `[2단계] 왼쪽 카테고리에서 <strong>“버거”</strong> 탭을 눌러보세요.`;
-
-      setTimeout(() => {
-        showArrowForBurgerCategory();
-      }, 100);
+      setStepText(
+        "2단계",
+        "버거 메뉴 열기",
+        `[2단계] 왼쪽 카테고리에서 <strong>“버거”</strong> 탭을 눌러보세요.`
+      );
+      setTimeout(showArrowForBurgerCategory, 100);
 
     } else if (step === 3) {
-      stepBadge.textContent = "3단계";
-      stepTitle.textContent = "리아불고기 선택하기";
-      stepDesc.innerHTML = `[3단계] 버거 목록에서 <strong>“리아불고기”</strong>를 찾아 눌러보세요.`;
-
-      setTimeout(() => {
-        showArrowForRiaBulgogi();
-      }, 150);
+      setStepText(
+        "3단계",
+        "리아불고기 선택하기",
+        `[3단계] 버거 목록에서 <strong>“리아불고기”</strong>를 찾아 눌러보세요.`
+      );
+      setTimeout(showArrowForRiaBulgogi, 150);
 
     } else if (step === 4) {
-      stepBadge.textContent = "4단계";
-      stepTitle.textContent = "세트 구성 선택하기";
-      stepDesc.innerHTML = `[4단계] 빵, 세트 여부, 디저트·음료를 차례로 선택해 주세요.`;
+      setStepText(
+        "4단계",
+        "세트 구성 선택하기",
+        `[4단계] 빵, 세트 여부, 디저트·음료를 차례로 선택해 주세요.`
+      );
 
     } else if (step === 5) {
-      stepBadge.textContent = "5단계";
-      stepTitle.textContent = "결제하기";
-      stepDesc.innerHTML = `[5단계] 주문 내역을 확인한 뒤 <strong>“결제하기”</strong> 버튼을 눌러 결제를 완료해 보세요.`;
+      setStepText(
+        "5단계",
+        "결제하기",
+        `[5단계] 주문 내역을 확인한 뒤 <strong>“결제하기”</strong> 버튼을 눌러 결제를 완료해 보세요.`
+      );
     }
   }
 
   function goToStep(step) {
-    // 1~5 범위로 방어
     if (step < 1) step = 1;
     if (step > 5) step = 5;
 
@@ -231,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (dineInButton) {
     dineInButton.addEventListener("click", () => {
       if (learningState.currentStep !== 1) return;
-      goToStep(2);   // lotteria.js에서 실제 화면 전환 + 카테고리 생성
+      goToStep(2);
       console.log("✅ 1단계 완료 → 2단계로 이동");
     });
   } else {
@@ -277,8 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
     retryBtn.onclick = () => {
       console.log("[retry] 클릭, 현재 단계:", learningState.currentStep);
       if (learningState.currentStep > 1) {
-        const prev = learningState.currentStep - 1;
-        goToStep(prev);
+        goToStep(learningState.currentStep - 1);
       }
     };
   }
@@ -286,7 +290,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (resetBtn) {
     resetBtn.onclick = () => {
       console.log("[reset] 처음부터 클릭");
-      // 전체 상태 & 키오스크 화면 같이 새로고침
       location.reload();
     };
   }
