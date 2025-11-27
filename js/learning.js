@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ====================================
-      힌트 화살표 유틸
+      🔍 힌트 화살표 유틸
   ==================================== */
 
   function ensureArrow() {
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * 특정 DOM 요소를 가리키는 화살표 표시
+   * 특정 DOM 요소를 가리키는 좌/우 화살표 표시
    * @param {HTMLElement} element - 가리킬 대상
    * @param {"left"|"right"} direction - 화살표 머리 방향
    */
@@ -85,46 +85,48 @@ document.addEventListener("DOMContentLoaded", () => {
       arrow.textContent = "←";
     } else {
       // 요소 왼쪽 옆에서 → 방향
-      left = rect.left - baseRect.left - 24;
+      left = rect.left - baseRect.left - 8;
       arrow.textContent = "→";
     }
 
+    arrow.classList.remove("hint-arrow-down", "hint-arrow-up", "hint-arrow-left", "hint-arrow-right");
     arrow.style.top = `${top}px`;
     arrow.style.left = `${left}px`;
     arrow.style.display = "block";
   }
 
+  // 🔽 1단계: 매장에서 식사 버튼 위에서 아래로 내려오는 화살표
   function showArrowForDineIn() {
+    if (!kioskArea) return;
     const target = document.getElementById("btn-dine-in");
     if (!target) return;
-  
-    removeAllArrows(); // 기존 화살표 제거
-  
+
+    const arrow = ensureArrow();
+    const baseRect = kioskArea.getBoundingClientRect();
     const rect = target.getBoundingClientRect();
-  
-    // 화면 위쪽에서 아래로 ↘︎ 내려오는 화살표
-    const arrow = document.createElement("div");
-    arrow.className = "hint-arrow hint-arrow-down";
+
+    const top  = rect.top - baseRect.top - 12;        // 버튼 위쪽
+    const left = rect.left - baseRect.left + rect.width / 2;
+
     arrow.textContent = "↓";
-  
-    // target 위 중앙에 위치
-    arrow.style.left = rect.left + rect.width / 2 + "px";
-    arrow.style.top  = rect.top - 20 + "px";    // 위쪽 위치 조정
-  
-    document.body.appendChild(arrow);
+    arrow.classList.remove("hint-arrow-up", "hint-arrow-left", "hint-arrow-right");
+    arrow.classList.add("hint-arrow-down");
+    arrow.style.top = `${top}px`;
+    arrow.style.left = `${left}px`;
+    arrow.style.display = "block";
   }
 
-  // 버거 카테고리 버튼을 가리키는 화살표
+  // 2단계: 버거 카테고리 버튼을 가리키는 화살표
   function showArrowForBurgerCategory() {
     const burgerBtn = document.querySelector(".category-nav button");
     if (!burgerBtn) {
       hideArrow();
       return;
     }
-    showArrowForElement(burgerBtn, "left");
+    showArrowForElement(burgerBtn, "left"); // 오른쪽에서 ← 로 가리키기
   }
 
-  // "리아불고기" 메뉴 카드를 가리키는 화살표
+  // 3단계: "리아불고기" 메뉴 카드를 가리키는 화살표
   function showArrowForRiaBulgogi() {
     const cards = document.querySelectorAll(".item-card");
     let targetCard = null;
@@ -141,8 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    showArrowForElement(btn, "right");  // →  
-    showArrowForElement(btn, "left");   // ←
+    // 카드 왼쪽에서 → 로 가리키게
+    showArrowForElement(targetCard, "right");
   }
 
   /* ====================================
@@ -169,19 +171,19 @@ document.addEventListener("DOMContentLoaded", () => {
       stepBadge.textContent = "1단계";
       stepTitle.textContent = "식사 장소 선택하기";
       stepDesc.innerHTML = `화면 가운데에서 <strong>"매장에서 식사"</strong>를 눌러보세요.`;
-    
+
       setTimeout(() => {
         showArrowForDineIn();
       }, 50);
+
     } else if (step === 2) {
       stepBadge.textContent = "2단계";
       stepTitle.textContent = "버거 메뉴 열기";
       stepDesc.innerHTML = `왼쪽 카테고리에서 <strong>“버거”</strong> 탭을 눌러보세요.`;
 
-      // 메뉴 화면이 뜬 뒤에 버거 탭 위치를 계산해야 하므로 살짝 늦게 실행
       setTimeout(() => {
         showArrowForBurgerCategory();
-      }, 50);
+      }, 100);
 
     } else if (step === 3) {
       stepBadge.textContent = "3단계";
@@ -190,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         showArrowForRiaBulgogi();
-      }, 50);
+      }, 150);
 
     } else if (step === 4) {
       stepBadge.textContent = "4단계";
@@ -214,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
     dineInButton.addEventListener("click", () => {
       if (learningState.currentStep !== 1) return;
       // lotteria.js에서 실제 화면 전환 + 카테고리 생성
-      // → 여기서는 학습 단계만 2로 이동
       goToStep(2);
       console.log("✅ 1단계 완료 → 2단계로 이동");
     });
@@ -267,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (resetBtn) {
     resetBtn.onclick = () => {
-      // 전체 상태 & 키오스크 화면까지 완전 초기화
+      // 전체 상태 & 키오스크 화면 같이 새로고침
       location.reload();
     };
   }
