@@ -15,8 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const stepDesc  = document.querySelector(".step-description");
   const stepList  = document.querySelectorAll(".step-list li");
 
-  // 상단 미션 문구 (헤더)
+  // 상단 미션 문구 (헤더) – 항상 고정 메시지
   const missionText = document.querySelector(".mission-text");
+  if (missionText) {
+    missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요";
+  }
 
   // 패널 버튼
   const retryBtn = document.getElementById("btn-retry-step");
@@ -165,20 +168,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🔼 헤더(미션 문구)도 단계에 따라 같이 업데이트
-  function updateHeaderForStep(step) {
-    if (!missionText) return;
-
+  // 단계별 텍스트 & 화살표 설정
+  function applyStepUI(step) {
     if (step === 1) {
-      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (1단계: 식사 장소 선택)";
+      stepBadge.textContent = "1단계";
+      stepTitle.textContent = "식사 장소 선택하기";
+      stepDesc.innerHTML = `[1단계] 화면 가운데에서 <strong>"매장에서 식사"</strong>를 눌러보세요.`;
+
+      setTimeout(() => {
+        showArrowForDineIn();
+      }, 50);
+
     } else if (step === 2) {
-      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (2단계: 버거 카테고리 열기)";
+      stepBadge.textContent = "2단계";
+      stepTitle.textContent = "버거 메뉴 열기";
+      stepDesc.innerHTML = `[2단계] 왼쪽 카테고리에서 <strong>“버거”</strong> 탭을 눌러보세요.`;
+
+      setTimeout(() => {
+        showArrowForBurgerCategory();
+      }, 100);
+
     } else if (step === 3) {
-      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (3단계: 리아불고기 선택)";
+      stepBadge.textContent = "3단계";
+      stepTitle.textContent = "리아불고기 선택하기";
+      stepDesc.innerHTML = `[3단계] 버거 목록에서 <strong>“리아불고기”</strong>를 찾아 눌러보세요.`;
+
+      setTimeout(() => {
+        showArrowForRiaBulgogi();
+      }, 150);
+
     } else if (step === 4) {
-      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (4단계: 세트 구성 선택)";
+      stepBadge.textContent = "4단계";
+      stepTitle.textContent = "세트 구성 선택하기";
+      stepDesc.innerHTML = `[4단계] 빵, 세트 여부, 디저트·음료를 차례로 선택해 주세요.`;
+
     } else if (step === 5) {
-      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (5단계: 결제 진행)";
+      stepBadge.textContent = "5단계";
+      stepTitle.textContent = "결제하기";
+      stepDesc.innerHTML = `[5단계] 주문 내역을 확인한 뒤 <strong>“결제하기”</strong> 버튼을 눌러 결제를 완료해 보세요.`;
     }
   }
 
@@ -192,45 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
     learningState.currentStep = step;
     hideArrow();
     updateStepList(step);
-    updateHeaderForStep(step);
-
-    if (step === 1) {
-      stepBadge.textContent = "1단계";
-      stepTitle.textContent = "식사 장소 선택하기";
-      stepDesc.innerHTML = `화면 가운데에서 <strong>"매장에서 식사"</strong>를 눌러보세요.`;
-
-      setTimeout(() => {
-        showArrowForDineIn();
-      }, 50);
-
-    } else if (step === 2) {
-      stepBadge.textContent = "2단계";
-      stepTitle.textContent = "버거 메뉴 열기";
-      stepDesc.innerHTML = `왼쪽 카테고리에서 <strong>“버거”</strong> 탭을 눌러보세요.`;
-
-      setTimeout(() => {
-        showArrowForBurgerCategory();
-      }, 100);
-
-    } else if (step === 3) {
-      stepBadge.textContent = "3단계";
-      stepTitle.textContent = "리아불고기 선택하기";
-      stepDesc.innerHTML = `버거 목록에서 <strong>“리아불고기”</strong>를 찾아 눌러보세요.`;
-
-      setTimeout(() => {
-        showArrowForRiaBulgogi();
-      }, 150);
-
-    } else if (step === 4) {
-      stepBadge.textContent = "4단계";
-      stepTitle.textContent = "세트 구성 선택하기";
-      stepDesc.innerHTML = `빵, 세트 여부, 디저트·음료를 차례로 선택해 주세요.`;
-
-    } else if (step === 5) {
-      stepBadge.textContent = "5단계";
-      stepTitle.textContent = "결제하기";
-      stepDesc.innerHTML = `주문 내역을 확인한 뒤 <strong>“결제하기”</strong> 버튼을 눌러 결제를 완료해 보세요.`;
-    }
+    applyStepUI(step);
   }
 
   /* ====================================
