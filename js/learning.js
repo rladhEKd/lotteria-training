@@ -261,7 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (retryBtn) {
     retryBtn.onclick = () => {
       if (learningState.currentStep > 1) {
-        goToStep(learningState.currentStep - 1);
+        const prev = learningState.currentStep - 1;
+        console.log("🔙 이전 단계로:", learningState.currentStep, "→", prev);
+        goToStep(prev);
       }
     };
   }
