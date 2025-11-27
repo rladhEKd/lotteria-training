@@ -165,16 +165,23 @@
   color: #c62828;
 }
 
-/* =========================
-   힌트 화살표 (버튼 가리키기)
-   ========================= */
+/* ===========================================
+   🔥 공통 화살표 스타일 — 굵고 눈에 잘 띄게
+=========================================== */
 
 .hint-arrow {
   position: absolute;
-  font-size: 26px;
-  font-weight: 700;
-  color: #f39c12;
-  text-shadow: 0 0 3px #ffffff;
+  z-index: 9999;
+  font-size: 38px;        /* 더 큼 */
+  font-weight: 900;       /* 더 굵게 */
+  color: #ff1744;         /* 진한 빨강 */
+  text-shadow: 0 0 6px rgba(0,0,0,0.25); /* 배경 대비 증가 */
   pointer-events: none;
-  z-index: 20;
+  transform: translate(-50%, -50%);
 }
+
+/* 방향 별 스타일 */
+.hint-arrow-down { transform: translate(-50%, 0); }
+.hint-arrow-up   { transform: translate(-50%, -100%); }
+.hint-arrow-left { transform: translate(-100%, -50%); }
+.hint-arrow-right { transform: translate(0, -50%); }
