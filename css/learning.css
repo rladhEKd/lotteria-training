@@ -185,3 +185,22 @@
 .hint-arrow-up   { transform: translate(-50%, -100%); }
 .hint-arrow-left { transform: translate(-100%, -50%); }
 .hint-arrow-right { transform: translate(0, -50%); }
+
+/* 좌측을 가리키는 굵은 화살표 (←) */
+.hint-arrow-left::before {
+  content: "←";
+  font-size: 38px;
+  font-weight: 900;
+  color: #ff1744;
+  text-shadow: 0 0 6px rgba(0,0,0,0.25);
+}
+
+/* 우측을 가리키는 굵은 화살표 (→) */
+.hint-arrow-right::before {
+  content: "→";
+  font-size: 38px;
+  font-weight: 900;
+  color: #ff1744;
+  text-shadow: 0 0 6px rgba(0,0,0,0.25);
+}
+
