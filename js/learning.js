@@ -11,12 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const stepDesc  = document.querySelector(".step-description");
   const stepList  = document.querySelectorAll(".step-list li");
 
-  if (!stepTitle || !stepBadge || !stepDesc || stepList.length === 0) {
-    console.warn("[learning.js] 학습 패널 요소를 찾지 못했습니다.");
-    return;
-  }
+  // 헤더 한 줄 안내
+  const headerStepLabel = document.querySelector(".learning-status-row .step-label");
+  const headerStepBrief = document.querySelector(".learning-status-row .step-brief");
 
-  /* ---------- 상단 '홈으로' ---------- */
+  /* ---------- 홈으로 ---------- */
   const homeBtn = document.querySelector(".app-back");
   if (homeBtn) {
     homeBtn.addEventListener("click", () => {
@@ -24,55 +23,51 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ====================================
-     말풍선 공통 헬퍼
-  ==================================== */
+  /* ---------- 화살표 헬퍼 ---------- */
   function clearHints() {
-    document.querySelectorAll(".hint-bubble").forEach(el => el.remove());
+    document.querySelectorAll(".hint-arrow").forEach(el => el.remove());
   }
 
   function showHintForStep(step) {
     clearHints();
 
-    // 1단계: 매장에서 식사
+    // 1단계: 매장에서 식사 버튼
     if (step === 1) {
       const btn = document.getElementById("btn-dine-in");
       if (!btn) return;
-      const bubble = document.createElement("div");
-      bubble.className = "hint-bubble hint-bottom-center";
-      bubble.textContent = "여기를 눌러 매장에서 식사를 선택해요.";
-      btn.appendChild(bubble);
+      const arrow = document.createElement("div");
+      arrow.className = "hint-arrow hint-arrow-down";
+      arrow.textContent = "↓";
+      btn.appendChild(arrow);
     }
 
-    // 2단계: 왼쪽 '버거' 카테고리
+    // 2단계: 왼쪽 버거 탭
     if (step === 2) {
       const burgerBtn = [...document.querySelectorAll(".category-nav button")]
         .find(b => b.textContent.includes("버거"));
       if (!burgerBtn) return;
-      const bubble = document.createElement("div");
-      bubble.className = "hint-bubble hint-right-center";
-      bubble.textContent = "여기를 눌러 '버거' 메뉴를 열어보세요.";
-      burgerBtn.appendChild(bubble);
+      const arrow = document.createElement("div");
+      arrow.className = "hint-arrow hint-arrow-right";
+      arrow.textContent = "→";
+      burgerBtn.appendChild(arrow);
     }
 
-    // 3단계 이후는 나중에(리아불고기, 빵/디저트/음료…) 계속 추가하면 됨
+    // 3단계 이후 화살표는 나중에 추가
   }
 
-  /* ====================================
-     단계 UI 갱신 (상단 + 패널 공통)
-  ==================================== */
+  /* ---------- 단계 UI 공통 업데이트 ---------- */
   function updateStepUI(step) {
     learningState.currentStep = step;
 
-    // 패널 step-list 표시
+    // 패널 리스트
     stepList.forEach((li, idx) => {
       li.classList.remove("current", "done");
-      const stepIndex = idx + 1;
-      if (stepIndex < step) li.classList.add("done");
-      if (stepIndex === step) li.classList.add("current");
+      const s = idx + 1;
+      if (s < step) li.classList.add("done");
+      if (s === step) li.classList.add("current");
     });
 
-    // 상단 뱃지 / 타이틀 / 설명
+    // 패널 제목/설명
     if (step === 1) {
       stepBadge.textContent = "1단계";
       stepTitle.textContent = "식사 장소 선택하기";
@@ -86,31 +81,31 @@ document.addEventListener("DOMContentLoaded", () => {
       stepTitle.textContent = "리아불고기 선택하기";
       stepDesc.innerHTML = `버거 목록에서 <strong>“리아불고기”</strong>를 눌러주세요.`;
     }
-    // 4,5단계도 나중에 이어서 정의
+
+    // 헤더 한 줄 안내 텍스트
+    if (headerStepLabel && headerStepBrief) {
+      headerStepLabel.textContent = `[${step}단계]`;
+      let brief = "";
+      if (step === 1) brief = "가운데에서 ‘매장에서 식사’를 선택해 주세요.";
+      else if (step === 2) brief = "왼쪽 메뉴에서 ‘버거’ 탭을 눌러 주세요.";
+      else if (step === 3) brief = "버거 목록에서 ‘리아불고기’를 눌러 주세요.";
+      headerStepBrief.textContent = brief;
+    }
 
     showHintForStep(step);
   }
 
-  /* ====================================
-      1단계: 매장에서 식사
-  ==================================== */
+  /* ---------- 1단계: 매장에서 식사 ---------- */
   const dineInButton = document.getElementById("btn-dine-in");
-
   if (dineInButton) {
     dineInButton.addEventListener("click", () => {
       if (learningState.currentStep !== 1) return;
-      completeStep1();
+      console.log("✅ 1단계 완료 → 2단계");
+      updateStepUI(2);
     });
   }
 
-  function completeStep1() {
-    console.log("✅ 1단계 완료 → 2단계로 이동");
-    updateStepUI(2);
-  }
-
-  /* ====================================
-      2단계: 버거 카테고리 클릭
-  ==================================== */
+  /* ---------- 2단계: 버거 카테고리 클릭 ---------- */
   document.addEventListener("click", (event) => {
     if (learningState.currentStep !== 2) return;
 
@@ -119,19 +114,13 @@ document.addEventListener("DOMContentLoaded", () => {
       target.matches(".category-nav button") &&
       target.textContent.includes("버거")
     ) {
-      completeStep2();
+      console.log("✅ 2단계 완료 → 3단계");
+      updateStepUI(3);
     }
   });
 
-  function completeStep2() {
-    console.log("✅ 2단계 완료 → 3단계 안내 표시");
-    updateStepUI(3);
-  }
-
-  /* ====================================
-      이전 단계 / 처음부터 다시
-  ==================================== */
-  const prevBtn  = document.getElementById("btn-prev-step");
+  /* ---------- 이전 단계 / 처음부터 다시 ---------- */
+  const prevBtn  = document.getElementById("btn-prev-step") || document.getElementById("btn-retry-step");
   const resetBtn = document.getElementById("btn-reset-mission");
 
   if (prevBtn) {
@@ -143,10 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (resetBtn) {
     resetBtn.onclick = () => {
-      updateStepUI(1);
+      // 진짜 처음 화면(식사 장소 선택)까지 완전히 되돌리기
+      location.reload();
     };
   }
 
-  /* 초기 상태 세팅 */
+  // 처음 로딩 시 1단계 상태 세팅
   updateStepUI(1);
 });
