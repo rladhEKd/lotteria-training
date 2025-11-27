@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const stepDesc  = document.querySelector(".step-description");
   const stepList  = document.querySelectorAll(".step-list li");
 
+  // 상단 미션 문구 (헤더)
+  const missionText = document.querySelector(".mission-text");
+
   // 패널 버튼
   const retryBtn = document.getElementById("btn-retry-step");
   const resetBtn = document.getElementById("btn-reset-mission");
@@ -162,10 +165,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // 🔼 헤더(미션 문구)도 단계에 따라 같이 업데이트
+  function updateHeaderForStep(step) {
+    if (!missionText) return;
+
+    if (step === 1) {
+      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (1단계: 식사 장소 선택)";
+    } else if (step === 2) {
+      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (2단계: 버거 카테고리 열기)";
+    } else if (step === 3) {
+      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (3단계: 리아불고기 선택)";
+    } else if (step === 4) {
+      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (4단계: 세트 구성 선택)";
+    } else if (step === 5) {
+      missionText.textContent = "미션: 리아불고기 세트를 주문해 보세요 (5단계: 결제 진행)";
+    }
+  }
+
   function goToStep(step) {
+    // 1~5 범위로 방어
+    if (step < 1) step = 1;
+    if (step > 5) step = 5;
+
+    console.log("[goToStep] 이동:", learningState.currentStep, "→", step);
+
     learningState.currentStep = step;
     hideArrow();
     updateStepList(step);
+    updateHeaderForStep(step);
 
     if (step === 1) {
       stepBadge.textContent = "1단계";
@@ -215,8 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (dineInButton) {
     dineInButton.addEventListener("click", () => {
       if (learningState.currentStep !== 1) return;
-      // lotteria.js에서 실제 화면 전환 + 카테고리 생성
-      goToStep(2);
+      goToStep(2);   // lotteria.js에서 실제 화면 전환 + 카테고리 생성
       console.log("✅ 1단계 완료 → 2단계로 이동");
     });
   } else {
@@ -260,9 +286,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (retryBtn) {
     retryBtn.onclick = () => {
+      console.log("[retry] 클릭, 현재 단계:", learningState.currentStep);
       if (learningState.currentStep > 1) {
         const prev = learningState.currentStep - 1;
-        console.log("🔙 이전 단계로:", learningState.currentStep, "→", prev);
         goToStep(prev);
       }
     };
@@ -270,6 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (resetBtn) {
     resetBtn.onclick = () => {
+      console.log("[reset] 처음부터 클릭");
       // 전체 상태 & 키오스크 화면 같이 새로고침
       location.reload();
     };
