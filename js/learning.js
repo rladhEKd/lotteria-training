@@ -93,6 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
     arrow.style.left = `${left}px`;
     arrow.style.display = "block";
   }
+  function showArrowForDineIn() {
+    const btn = document.getElementById("btn-dine-in");
+    if (!btn) return;
+    showArrowForElement(btn, "left");  // 버튼 오른쪽에서 ← 방향
+  }
 
   // 버거 카테고리 버튼을 가리키는 화살표
   function showArrowForBurgerCategory() {
@@ -147,8 +152,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (step === 1) {
       stepBadge.textContent = "1단계";
       stepTitle.textContent = "식사 장소 선택하기";
-      stepDesc.innerHTML = `화면 가운데의 버튼 중에서 <strong>“매장에서 식사”</strong>를 눌러보세요.`;
-
+      stepDesc.innerHTML = `화면 가운데에서 <strong>"매장에서 식사"</strong>를 눌러보세요.`;
+    
+      setTimeout(() => {
+        showArrowForDineIn();
+      }, 50);
     } else if (step === 2) {
       stepBadge.textContent = "2단계";
       stepTitle.textContent = "버거 메뉴 열기";
