@@ -195,12 +195,26 @@
   left: 50%;
   transform: translate(-50%, -6px);
 }
+.hint-arrow {
+  position: absolute;
+  font-size: 26px;
+  font-weight: bold;
+  color: #f39c12;
+  pointer-events: none;
+}
 
-/* 2단계: 버튼 오른쪽 중앙 → */
+/* 오른쪽에 화살표가 나타나는 기본 위치 */
 .hint-arrow-right {
+  position: absolute;
   top: 50%;
   left: 100%;
   transform: translate(4px, -50%);
+  font-size: 26px;
+  font-weight: bold;
+  color: #f39c12;
+  pointer-events: none;
+}
+
 }
 /* 왼쪽 화살표(버거 탭용) */
 .hint-arrow-left {
