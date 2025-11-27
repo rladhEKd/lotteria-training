@@ -202,3 +202,9 @@
   left: 100%;
   transform: translate(4px, -50%);
 }
+/* 왼쪽 화살표(버거 탭용) */
+.hint-arrow-left {
+  top: 50%;
+  right: 100%;
+  transform: translate(-4px, -50%);
+}
