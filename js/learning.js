@@ -93,10 +93,25 @@ document.addEventListener("DOMContentLoaded", () => {
     arrow.style.left = `${left}px`;
     arrow.style.display = "block";
   }
+
   function showArrowForDineIn() {
-    const btn = document.getElementById("btn-dine-in");
-    if (!btn) return;
-    showArrowForElement(btn, "left");  // 버튼 오른쪽에서 ← 방향
+    const target = document.getElementById("btn-dine-in");
+    if (!target) return;
+  
+    removeAllArrows(); // 기존 화살표 제거
+  
+    const rect = target.getBoundingClientRect();
+  
+    // 화면 위쪽에서 아래로 ↘︎ 내려오는 화살표
+    const arrow = document.createElement("div");
+    arrow.className = "hint-arrow hint-arrow-down";
+    arrow.textContent = "↓";
+  
+    // target 위 중앙에 위치
+    arrow.style.left = rect.left + rect.width / 2 + "px";
+    arrow.style.top  = rect.top - 20 + "px";    // 위쪽 위치 조정
+  
+    document.body.appendChild(arrow);
   }
 
   // 버거 카테고리 버튼을 가리키는 화살표
@@ -126,7 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    showArrowForElement(targetCard, "left");
+    showArrowForElement(btn, "right");  // →  
+    showArrowForElement(btn, "left");   // ←
   }
 
   /* ====================================
