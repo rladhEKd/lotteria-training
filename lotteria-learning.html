@@ -20,23 +20,21 @@
     <header class="learning-header">
       <div class="brand-row">
         <button type="button" class="app-back">홈으로</button>
-    
-        <div class="brand-center">
-          <span class="app-title">롯데리아 키오스크 학습 모드</span>
-          <p class="mission-text">미션: 리아불고기 세트를 주문해 보세요</p>
-        </div>
-    
+        <span class="app-title">롯데리아 키오스크 학습 모드</span>
         <span class="mode-pill">연습 중</span>
       </div>
     
-      <!-- 단계 안내 + 이전/처음 버튼이 들어가는 상단 바 -->
-      <div class="learning-top-bar">
-        <p class="step-inline">
-          <strong>[1단계]</strong> 매장에서 식사 버튼을 눌러주세요.
-        </p>
-        <div class="top-actions">
-          <button id="btn-prev-step" class="ghost small">이전 단계로</button>
-          <button id="btn-reset-mission" class="danger small">처음부터 다시</button>
+      <p class="mission-text">미션: 리아불고기 세트를 주문해 보세요</p>
+    
+      <!-- ✓ 단계 한 줄 안내 + 버튼들 -->
+      <div class="learning-status-row">
+        <div class="current-step-text">
+          <span class="step-label">[1단계]</span>
+          <span class="step-brief">가운데에서 ‘매장에서 식사’를 선택해 주세요.</span>
+        </div>
+        <div class="step-controls">
+          <button id="btn-prev-step">이전 단계로</button>
+          <button id="btn-reset-mission" class="danger">처음부터 다시</button>
         </div>
       </div>
     </header>
