@@ -166,41 +166,33 @@
 }
 
 /* ===========================================
-   🔥 공통 화살표 스타일 — 굵고 눈에 잘 띄게
+   🔥 공통 화살표 스타일 — 파란색 & 굵게
 =========================================== */
 
 .hint-arrow {
   position: absolute;
   z-index: 9999;
-  font-size: 38px;        /* 더 큼 */
-  font-weight: 900;       /* 더 굵게 */
-  color: #ff1744;         /* 진한 빨강 */
-  text-shadow: 0 0 6px rgba(0,0,0,0.25); /* 배경 대비 증가 */
+  font-size: 38px;        /* 크기는 그대로 */
+  font-weight: 900;       /* 두껍게 */
+  color: #1976d2;         /* 파란색 */
+  text-shadow: 0 0 6px rgba(0,0,0,0.25);
   pointer-events: none;
   transform: translate(-50%, -50%);
 }
 
-/* 방향 별 스타일 */
-.hint-arrow-down { transform: translate(-50%, 0); }
-.hint-arrow-up   { transform: translate(-50%, -100%); }
-.hint-arrow-left { transform: translate(-100%, -50%); }
-.hint-arrow-right { transform: translate(0, -50%); }
-
-/* 좌측을 가리키는 굵은 화살표 (←) */
-.hint-arrow-left::before {
-  content: "←";
-  font-size: 38px;
-  font-weight: 900;
-  color: #ff1744;
-  text-shadow: 0 0 6px rgba(0,0,0,0.25);
+/* 방향 별 위치 보정 */
+.hint-arrow-down {
+  transform: translate(-50%, 0);
 }
 
-/* 우측을 가리키는 굵은 화살표 (→) */
-.hint-arrow-right::before {
-  content: "→";
-  font-size: 38px;
-  font-weight: 900;
-  color: #ff1744;
-  text-shadow: 0 0 6px rgba(0,0,0,0.25);
+.hint-arrow-up {
+  transform: translate(-50%, -100%);
 }
 
+.hint-arrow-left {
+  transform: translate(-100%, -50%);
+}
+
+.hint-arrow-right {
+  transform: translate(0, -50%);
+}
