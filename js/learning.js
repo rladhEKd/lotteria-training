@@ -46,9 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const burgerBtn = [...document.querySelectorAll(".category-nav button")]
         .find(b => b.textContent.includes("버거"));
       if (!burgerBtn) return;
+    
       const arrow = document.createElement("div");
-      arrow.className = "hint-arrow hint-arrow-right";
-      arrow.textContent = "→";
+      arrow.className = "hint-arrow hint-arrow-left"; // ← 방향 추가
+      arrow.textContent = "←"; // 화살표 모양 변경
       burgerBtn.appendChild(arrow);
     }
 
